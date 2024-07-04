@@ -27,5 +27,6 @@ class ItemPriceLookup extends Model
      protected $fillable = [
         'item_id',
         'item_price',
+        'item_multiplier',
      ];
 }

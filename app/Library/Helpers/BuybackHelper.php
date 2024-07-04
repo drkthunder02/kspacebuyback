@@ -108,8 +108,8 @@ use App\Models\Buyback\ContractItem as BuybackContractItems;
 
         for($i = 0; $i < sizeof($lines); $i++) {
             $temp = explode($lines[$i]);
-            $process[$i]["item"] = $temp[0];
-            $process[$i]["quantity"] = str_replace($temp[1], "x");
+            $process[$i]['item'] = $temp[0];
+            $process[$i]['quantity'] = str_replace($temp[1], "x");
         }
 
         return $processed;
@@ -121,22 +121,21 @@ use App\Models\Buyback\ContractItem as BuybackContractItems;
      * Store the contract items
      * 
      * @param data
-     * @return contractId
-     * @return description
+     * @return array
      */
     public function StoreBuybackContract($data) {
         $contract = new BuybackContract;
         $contractItems = new BuybackContractItems;
         $marketHelper = new MarketHelper;
+        $contractTotal = 0.00;
 
         //Create the random string for the description
         $contractDescription = $this->RandomString(16);
 
+        //Create the contract and store it in the database with the state of a quote since
+        //the contract has not been delivered to the esi yet.
         $contract->contract_name = $contractDescription;
-        $contract->station_id = null;
-        $contract->station_name = null;
-        $contract->station_allowed_dock = null;
-        $contract->contract_state = 'initial';
+        $contract->contract_state = 'quote';
         $contract->save();
 
         $newContract = BuybackContract::where([
@@ -145,23 +144,26 @@ use App\Models\Buyback\ContractItem as BuybackContractItems;
 
         foreach($data as $d) {
             //Get the price for the item
-            $price = $marketHelper($d['item_id']);
-
-            //Send job to job queue to update item pricing for the particular item
-            //The item is previously in the database, but we want to keep the price updated as much as possible
+            $itemInfo = $marketHelper->ItemMarketInfoLookup($d['item_id']);
             
             //Save the item into the database
             $item = new BuybackContractItem;
             $item->contract_id = $newContract['contract_id'];
-            $item->item_id = $d['item_id'];
-            $item->item_name = $d['item_name'];
-            $item->jita_price = $price;
+            $item->item_id = $itemInfo['item_id'];
+            $item->item_name = $itemInfo['item_name'];
+            $item->item_price = $itemInfo['item_price'];
+            $item->item_multiplier = $itemInfo['item_multiplier'];
+            $item->item_quantity = $d['quantity'];
             $item->save();
+
+            //Add up the items and their multipliers
+            $contracTotal += (($itemInfo['item_price'] * $itemInfo['item_multiplier']) * $d['quantity']);
         }
 
         $contract = [
             'contract_id' => $contractId,
             'contract_description' => $contractDescription,
+            'total' => $contractTotal,
         ];
 
         return $contract;

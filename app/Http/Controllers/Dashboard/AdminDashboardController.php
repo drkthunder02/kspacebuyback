@@ -37,18 +37,19 @@ class AdminDashboardController extends Controller
     }
 
     /**
+     * Update the item groups multipliers
+     */
+    public function displayUpdateItemGroupsMultiplier() {
+        //Display all of the market item groups
+    }
+
+    /**
      * Show the administration dashboard.
      */
     public function displayAdminDashboard() {
-        if(!auth()->user()->hasRole('Admin')) {
-            redirect('/dashboard');
-        }
-
         //Grab short stastics of buybacks from the last 12 months
         $months = 12;
         
-        
-
         return view('admin.dashboards.dashboard');
     }
 

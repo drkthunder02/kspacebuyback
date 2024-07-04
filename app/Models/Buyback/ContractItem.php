@@ -27,9 +27,9 @@ class ContractItem extends Model
         'contract_id',
         'item_id',
         'item_name',
-        'jita_price',
-        'adjusted_price',
-        'average_price',
+        'item_quantity',
+        'item_price',
+        'item_multiplier',
     ];
 
     public function contract() {

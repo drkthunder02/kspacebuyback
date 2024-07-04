@@ -33,12 +33,12 @@ class MarketHelper {
         $this->regionId = 10000002;
     }
 
-    public function ItemPriceLookup($itemId) {
-        $price = ItemPriceLookup::where([
+    public function ItemMarketInfoLookup($itemId) {
+        $item = ItemPriceLookup::where([
             'item_id' => $itemId
         ])->first();
 
-        return $price['item_price'];
+        return $item;
     }
 
     /**

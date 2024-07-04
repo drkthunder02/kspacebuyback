@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        if(!Schema::hasTable('buyback_stations')) {
-            Schema::create('buyback_stations', function(Blueprint $table) {
+        if(!Schema::hasTable('buyback_station')) {
+            Schema::create('buyback_station', function(Blueprint $table) {
                 $table->unsignedBigInteger('contract_id')->primary();
                 $table->unsignedBigInteger('station_id')->nullable();
                 $table->string('station_name')->nullable();
@@ -39,9 +39,12 @@ return new class extends Migration
         if(!Schema::hasTable('buyback_contract_items')) {
             Schema::create('buyback_contract_items', function(Blueprint $table) {
                 $table->id();
-                $table->unsignedBigInteger('buyback_contract');
+                $table->unsignedBigInteger('contract_id');
+                $table->unsignedBigInteger('item_id');
                 $table->string('item_name');
-                $table->double('jita_price', 20, 2);
+                $table->decimal('item_quantity');
+                $table->double('item_price', 20, 2);
+                $table->decimal('item_multiplier', 5, 2);
                 $table->timestamps();
             });
         }

@@ -89,6 +89,7 @@ return new class extends Migration
             Schema::create('item_price_lookup', function(Blueprint $table) {
                 $table->unsignedBigInteger('item_id')->primary();
                 $table->double('item_price', 20, 2);
+                $table->double('item_multiplier', 5, 2);
                 $table->timestamps();
             });
         }
