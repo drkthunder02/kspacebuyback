@@ -13,13 +13,13 @@ return new class extends Migration
     {
         if(!Schema::hasTable('buyback_stations')) {
             Schema::create('buyback_stations', function(Blueprint $table) {
-                $table->unsignedBigInteger('contract_id');
-                $table->unsignedBigInteger('station_id');
-                $table->string('station_name');
+                $table->unsignedBigInteger('contract_id')->primary();
+                $table->unsignedBigInteger('station_id')->nullable();
+                $table->string('station_name')->nullable();
                 $table->enum('station_allowed_dock', [
                     'yes',
                     'no',
-                ]);
+                ])->default('no');
             });
         }
 
@@ -27,12 +27,6 @@ return new class extends Migration
             Schema::create('buyback_contract', function(Blueprint $table) {
                 $table->unsignedBigInteger('contract_id')->unique();
                 $table->string('contract_name');
-                $table->unsignedBigInteger('station_id')->nullable();
-                $table->string('station_name')->nullabe();
-                $table->enum('station_allowed_dock', [
-                    'yes',
-                    'no',
-                ])->nullabe();
                 $table->enum('contract_state', [
                     'quote',
                     'accepted',
