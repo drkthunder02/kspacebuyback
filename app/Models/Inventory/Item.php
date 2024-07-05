@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Models\Item;
+namespace App\Models\Inventory;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ItemGroup extends Model
+class Item extends Model
 {
     use HasFactory;
 }

@@ -21,8 +21,6 @@ use Seat\Eseye\Configuration;
 //Models
 use App\Models\Esi\EsiScope;
 use App\Models\Esi\EsiToken;
-use App\Models\Jobs\JobStatus;
-use App\Models\Mail\SentMail;
 use Seat\Eseye\Containers\EsiResponse;
 
 class SendEveMail implements ShouldQueue

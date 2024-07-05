@@ -1,21 +1,18 @@
 <?php
 
-namespace App\Models\Lookups;
+namespace App\Models\Item;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ItemPriceLookup extends Model
+class Multiplier extends Model
 {
     use HasFactory;
 
-    //Table Name
-    protected $table = 'item_price_lookup';
+    protected $table = "item_multiplier";
 
-    //Primary Key
-    public $primaryKey = 'item_id';
+    public $primaryKey = "item_id";
 
-    // Timestamps
     public $timestamps = true;
 
     /**
@@ -23,10 +20,12 @@ class ItemPriceLookup extends Model
      * 
      * @var array
      */
-
-     protected $fillable = [
+    protected $fillable = [
         'item_id',
-        'item_price',
         'item_multiplier',
-     ];
+    ];
+
+    public function item() {
+        return $this->belongsTo(App\Models\Item\Item::class, 'item_id', 'item_id');
+    }
 }

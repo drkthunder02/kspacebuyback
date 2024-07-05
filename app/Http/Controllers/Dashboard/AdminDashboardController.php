@@ -41,6 +41,8 @@ class AdminDashboardController extends Controller
      */
     public function displayUpdateItemGroupsMultiplier() {
         //Display all of the market item groups
+
+        return view('admin.dashboards.itemgroups')->with('itemgroups', $itemgroups);
     }
 
     /**
