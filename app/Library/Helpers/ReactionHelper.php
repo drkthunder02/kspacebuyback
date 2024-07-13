@@ -55,16 +55,48 @@ class ReactionHelper {
     /**
      * Create a tree of data for a recipe to be displayed later or modified.
      */
-    public function CreateReactionTree($recipe) {
+    public function CreateReactionTree($recipeName) {
 
+        //Find $reaction_ID in reaction lookup table
+        //Call FindIngredients($reaction_ID)
+
+        //Add input_IDs and input names to tree
+
+        //Call CreateReactionTree on input names
+        //Repeat until tree is complete
+
+        
     }
 
     /**
      * Given a recipe name, find it's ingredients
      */
-    public function FindIngredients($recipe) {
+    public function FindIngredients($recipeName) {
+        //Find reaction inputs in reaction input lookup table
 
+        //return all input_IDs, names, and quantities
     }
+
+    /**
+     * Given a reaction chain, desired number of reaction slots, desired number of blueprintes, and maximum time per slot (optional)
+     * Calculate optimal job slot distribution for a given reaction process
+     */
+    public function DetermineJobSlotDistribution($reactionTreeArr, $numSlots, $numBlueprintsArr, $maxJobDuration = 24){
+        
+        
+        //Return runs per reaction per slot and total reaction time
+    }
+
+    /**
+     * Given reaction recipe, skills, and structure bonuses
+     * Calculate job times
+     */
+    public function CalculateJobTime($reaction_ID, $skills, $structureBonuses){
+
+        
+        //Return job time
+    }
+
  }
 
  ?>
