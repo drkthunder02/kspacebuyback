@@ -208,6 +208,8 @@ return [
     |
     */
 
+    //Test
+
     'aliases' => Facade::defaultAliases()->merge([
         'App' => Illuminate\Support\Facades\App::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,
