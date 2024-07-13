@@ -25,9 +25,10 @@ use App\Models\Looksup\ReactionLookup;
 class ReactionHelper {
 
     private $esi;
-    private $char;
+    //private $char;
     private $reactionRecipeArr;
     private $recipeId;
+    private $charId;
 
     public function __construct($char, $esi = null) {
         $this->charId = $char;
