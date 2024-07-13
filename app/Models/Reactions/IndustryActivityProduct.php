@@ -4,6 +4,8 @@ namespace App\Models\Reactions;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder; 
+use app\Traits\HasCompositePrimaryKey;
 
 class IndustryActivityProduct extends Model
 {

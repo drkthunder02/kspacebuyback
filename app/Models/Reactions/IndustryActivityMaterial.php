@@ -4,6 +4,8 @@ namespace App\Models\Reactions;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder; 
+use app\Traits\HasCompositePrimaryKey;
 
 class IndustryActivityMaterial extends Model
 {
@@ -13,7 +15,7 @@ class IndustryActivityMaterial extends Model
     public $table = 'industryActivityMaterials';
 
     //Primary Key
-    //public $primaryKey = ['typeID', 'activityID'];
+    public $primaryKey = ['typeID', 'activityID'];
 
     //Timestamps
     public $timestamps = false;
