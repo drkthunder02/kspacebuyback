@@ -39,8 +39,10 @@ return new class extends Migration
                 $table->id();
                 $table->unsignedBigInteger('reaction_id');
                 $table->string('reaction_recipe_name');
+                $table->unsignedBigInteger("output_quantity");
                 $table->unsignedBigInteger('fuel_block_id');
                 $table->string('fuel_block_name');
+                $table->unsignedBigInteger('base_job_duration');
             });
         }
 
@@ -50,6 +52,7 @@ return new class extends Migration
                 $table->unsignedBigInteger('reaction_id');
                 $table->unsignedBigInteger('input_id');
                 $table->string('input_name');
+                $table->unsignedBigInteger("input_quantity");
             });
         }
     }
