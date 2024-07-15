@@ -4,8 +4,6 @@ namespace App\Models\Reactions;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder; 
-use app\Traits\HasCompositePrimaryKey;
 
 class IndustryActivityProduct extends Model
 {
@@ -19,6 +17,9 @@ class IndustryActivityProduct extends Model
 
     //Timestamps
     public $timestamps = false;
+
+    //Incrementing
+    public $incrementing = false;
 
     /**
      * The attributes that are mass assignable

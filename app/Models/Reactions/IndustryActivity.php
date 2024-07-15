@@ -20,6 +20,9 @@ class IndustryActivity extends Model
     //Timestamps
     public $timestamps = false;
 
+    //Incrementing
+    public $incrementing = false;
+
     /**
      * The attributes that are mass assignable
      * 

@@ -5,15 +5,15 @@ namespace App\Models\Reactions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class InventoryType extends Model
+class IndustryInputs extends Model
 {
     use HasFactory;
 
     //Table Name
-    public $table = 'invType';
+    public $table = 'industryInputs';
 
     //Primary Key
-    public $primaryKey = 'typeId';
+    public $primaryKey = ['productTypeId'];
 
     //Timestamps
     public $timestamps = false;
@@ -27,20 +27,9 @@ class InventoryType extends Model
      * @var array
      */
     protected $fillable = [
-        'typeID',
-        'groupID',
-        'typeName',
-        'description',
-        'mass',
-        'volume',
-        'capacity',
-        'portionSize',
-        'raceID',
-        'basePrice',
-        'published',
-        'marketGroupID',
-        'iconID',
-        'soundID',
-        'graphicID',
+        'productTypeId',
+        'inputTypeId',
+        'inputName',
+        'inputQuantity'
     ];
 }
