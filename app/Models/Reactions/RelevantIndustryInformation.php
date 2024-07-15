@@ -40,11 +40,11 @@ class RelevantIndustryInformation extends Model
     }
 
     public function getIngredients($typeID){
-        $ingredients = IndustryInputs::where(["productTypeId" => $typeID]);
+        $ingredients = IndustryInputs::find($typeID);
         return $ingredients;
     }
 
     public function getRecipe($typeID){
-
+        $recipe = RelevantIndustryInformation::find($typeID);
     }
 }

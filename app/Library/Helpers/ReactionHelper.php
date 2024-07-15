@@ -20,17 +20,28 @@ use App\Models\Reactions\IndustryActivityMaterial;
 use App\Models\Reactions\IndustryActivityProduct;
 use App\Models\Reactions\InventoryType;
 use App\Models\Reactions\InventoryTypeReaction;
+use App\Models\Reactions\RelevantIndustryInformation;
 use App\Models\Looksup\ReactionLookup;
+use PHPUnit\Event\Code\Test;
+use Predis\Command\Redis\APPEND;
+
+// recipe object
+class recipeObj{
+
+    public $recipeInformation;
+    public $inputMaterials;
+    public $inputRecipes;
+
+}
 
 class ReactionHelper {
 
     private $esi;
-    //private $char;
-    private $reactionRecipeArr;
-    private $recipeId;
     private $charId;
+    private $recipeId;
 
     public function __construct($char, $esi = null) {
+
         $this->charId = $char;
         if($esi == null) {
             $esiHelper = new Esi;
@@ -40,9 +51,8 @@ class ReactionHelper {
             $this->esi = $esi;
         }
 
-        $reactionRecipeArr = array();
 
-        $recipeId = [
+        $this->$recipeId = [
             'Manufacturing' => 1,
             'ResearchingTimeEfficiency' => 3,
             'ResearchingMaterialEfficiency' => 4,
@@ -53,29 +63,73 @@ class ReactionHelper {
     }
 
     /**
-     * Create a tree of data for a recipe to be displayed later or modified.
+     * Create a tree of data for a manufacturing or reaction recipe product to be displayed later or modified.
+     * @param int
      */
-    public function CreateReactionTree($recipeName) {
-
-        //Find $reaction_ID in reaction lookup table
-        //Call FindIngredients($reaction_ID)
-
-        //Add input_IDs and input names to tree
-
-        //Call CreateReactionTree on input names
-        //Repeat until tree is complete
-
+    public function CreateReactionTree($productTypeId) {
         
+        //Create recipe object
+        $recipe = new recipeObj;
+        $information = new RelevantIndustryInformation;
+
+        //Try to retrieve recipe from database
+        $recipeInformation = $information->getRecipe($productTypeId);
+        
+        //Check if recipe is present
+        if(!is_null($recipeInformation)){
+
+            //Store recipe information in recipe object
+            $recipe->recipeInformation = $recipeInformation;
+
+            //Retrieve inputs and store in recipe object
+            $recipe->inputMaterials = $information->getIngredients($productTypeId);
+
+            /**Call CreateReactionTree on input names
+             *Pray to recursion gods
+             *Repeat until tree is complete
+            */
+            foreach($recipe->inputMaterials as $ingredient){
+                //Check if recursion found a null return
+                $inputRecipe = $this->CreateReactionTree($ingredient->inputTypeId);
+                if(!is_null($inputRecipe)){
+                    $recipe->inputRecipes->append($inputRecipe);
+                }
+            }
+
+            //Return recipe tree
+            return $recipe;
+        }
+        //If recipe isn't present, return null
+        else{
+            return null;
+        }
     }
 
     /**
-     * Given a recipe name, find it's ingredients
+     * Combine all input materials in a given reaction tree
+     * @param recipeObj
      */
-    public function FindIngredients($recipeName) {
-        //Find reaction inputs in reaction input lookup table
+    public function combineInputs($recipe){
 
-        //return all input_IDs, names, and quantities
+        $materials = array();
+
+        //iterate through input materials array
+        foreach($recipe->inputMaterials as $ingredient){
+            
+            //check if ingredient is already present in $materials array
+            if(isset($materials[$ingredient->inputTypeId])){
+                //add amount to existing entry
+                $materials[$ingredient->inputTypeId]['quantity'] += $ingredient->inputQuantity;
+            }
+            else{
+                //create new entry
+                $materials[$ingredient->inputTypeId]['quantity'] = $ingredient->inputQuantity;
+                $materials[$ingredient->inputTypeId]['name'] = $ingredient->inputName;
+            }
+
+        }
     }
+
 
     /**
      * Given a reaction chain, desired number of reaction slots, desired number of blueprintes, and maximum time per slot (optional)
@@ -97,6 +151,9 @@ class ReactionHelper {
         //Return job time
     }
 
- }
+}
+
+
+
 
  ?>
