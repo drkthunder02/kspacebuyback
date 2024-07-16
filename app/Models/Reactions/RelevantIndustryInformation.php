@@ -4,6 +4,7 @@ namespace App\Models\Reactions;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Reactions\IndustryInputs;
 
 class RelevantIndustryInformation extends Model
 {
@@ -46,5 +47,6 @@ class RelevantIndustryInformation extends Model
 
     public function getRecipe($typeID){
         $recipe = RelevantIndustryInformation::find($typeID);
+        return $recipe;
     }
 }

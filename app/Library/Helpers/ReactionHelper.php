@@ -11,6 +11,7 @@ use Seat\Eseye\Exceptions\RequestFailedException;
 use App\Library\Esi\Esi;
 use App\Library\Helpers\LookupHelper;
 use App\Library\Helpers\AssetHelper;
+use App\Library\Helpers\Recipe;
 
 //App Models
 use App\Models\Esi\EsiToken;
@@ -25,14 +26,6 @@ use App\Models\Looksup\ReactionLookup;
 use PHPUnit\Event\Code\Test;
 use Predis\Command\Redis\APPEND;
 
-// recipe object
-class recipeObj{
-
-    public $recipeInformation;
-    public $inputMaterials;
-    public $inputRecipes;
-
-}
 
 class ReactionHelper {
 
@@ -52,7 +45,7 @@ class ReactionHelper {
         }
 
 
-        $this->$recipeId = [
+        $this->recipeId = [
             'Manufacturing' => 1,
             'ResearchingTimeEfficiency' => 3,
             'ResearchingMaterialEfficiency' => 4,
