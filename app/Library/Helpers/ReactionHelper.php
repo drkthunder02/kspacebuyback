@@ -23,9 +23,6 @@ use App\Models\Reactions\InventoryType;
 use App\Models\Reactions\InventoryTypeReaction;
 use App\Models\Reactions\RelevantIndustryInformation;
 use App\Models\Looksup\ReactionLookup;
-use PHPUnit\Event\Code\Test;
-use Predis\Command\Redis\APPEND;
-
 
 class ReactionHelper {
 
