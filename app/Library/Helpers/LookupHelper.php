@@ -82,14 +82,14 @@ class LookupHelper {
                 $solar = $this->esi->invoke('get', '/universe/systems/{system_id}/', [
                     'system_id' => $systemId,
                 ]);
+
+                $this->StoreSolarSystem($solar);
+
+                return $solar->name;
             } catch(RequestFailedException $e) {
                 Log::warning('Failed to get system id from /universe/systems in Lookup Helper.');
                 return null;
             }
-
-            $this->StoreSolarSystem($solar);
-
-            return $solar->name;
         }
     }
 
