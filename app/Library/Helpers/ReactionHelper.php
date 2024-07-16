@@ -55,7 +55,7 @@ class ReactionHelper {
 
     /**
      * Create a tree of data for a manufacturing or reaction recipe product to be displayed later or modified.
-     * @param int
+     * @param int $productTypeId
      */
     public function CreateReactionTree($productTypeId) {
         
@@ -98,11 +98,11 @@ class ReactionHelper {
 
     /**
      * Combine all input materials in a given reaction tree
-     * @param recipeObj
+     * @param recipeObj $recipe
      */
-    public function combineInputs($recipe){
-
+    public function combineInputs($recipe,$materialsArr = array()){
         $materials = array();
+        $materials += $materialsArr;
 
         //iterate through input materials array
         foreach($recipe->inputMaterials as $ingredient){
@@ -118,6 +118,13 @@ class ReactionHelper {
                 $materials[$ingredient->inputTypeId]['name'] = $ingredient->inputName;
             }
 
+        }
+
+        //traverse recipe tree
+        foreach($recipe->inputRecipes as $inputRecipe){
+            if(!is_null($inputRecipe)){
+                $this->combineInputs($inputRecipe,$materials);
+            }
         }
     }
 
