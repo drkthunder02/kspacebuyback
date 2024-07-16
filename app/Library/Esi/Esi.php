@@ -4,7 +4,6 @@ namespace App\Library\Esi;
 
 //Internal Libraries
 use Carbon\Carbon;
-use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
 use Log;
 
