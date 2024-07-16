@@ -135,5 +135,7 @@ class User extends Authenticatable
 
     public function getPermissions() {
         $permissions = UserPermission::where(['character_id' => $this->character_id]);
+
+        return $permissions;
     }
 }
