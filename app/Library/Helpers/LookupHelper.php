@@ -91,6 +91,8 @@ class LookupHelper {
                 return null;
             }
         }
+
+        return null;
     }
 
     public function SystemNameToId($system) {
