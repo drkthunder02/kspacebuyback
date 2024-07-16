@@ -5,7 +5,7 @@ namespace App\Models\Inventory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Trait extends Model
+class InventoryTrait extends Model
 {
     use HasFactory;
 }
