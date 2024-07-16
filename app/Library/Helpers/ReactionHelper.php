@@ -24,7 +24,6 @@ use App\Models\Reactions\InventoryTypeReaction;
 use App\Models\Reactions\RelevantIndustryInformation;
 use App\Models\Looksup\ReactionLookup;
 
-
 class ReactionHelper {
 
     private $esi;
